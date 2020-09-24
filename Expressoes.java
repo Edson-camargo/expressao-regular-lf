@@ -38,13 +38,7 @@ public class Expressoes{
             BufferedReader lerArq = new BufferedReader(arq); 
 
             String linha = lerArq.readLine(); 
-            //System.out.printf("%s\n", linha);
-
-            while (linha != EOF) {
-                System.out.printf("%s\n", linha);
-        
-                linha = lerArq.readLine(); // lê da segunda até a última linha
-              }
+            System.out.printf("%s\n", linha);
 
             arq.close();
         }
