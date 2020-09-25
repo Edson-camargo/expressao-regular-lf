@@ -4,22 +4,31 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Expressoes{
 
-    private final String frase;
+    private String frase;
 
-    Expressoes(final String frase) {
-
-        this.frase = frase;
+    Expressoes() {
+        
 
     }
 
+    public void begin() throws IOException{
+
+        System.out.print("\nDigite a Palavra: ");
+        Scanner input = new Scanner(System.in);
+        this.frase = input.nextLine();
+
+        salvaTxt();
+        leTxt();
+
+    }
     
     //MÉTODO PARA SALVAR U-M-A LINHA NO .TXT ------------------------
-    public void salvaTxt() throws IOException {
+    private void salvaTxt() throws IOException {
 
-        System.out.printf("A frase é: %s\n", frase);
         final FileWriter arq = new FileWriter("linguagem.txt");
         final PrintWriter gravarArq = new PrintWriter(arq);
         gravarArq.printf(frase);
@@ -29,9 +38,9 @@ public class Expressoes{
     }
 
     //MÉTODO QUE LÊ U-M-A LINHA SEM ESPAÇO --------------------------------------
-    public void leTxt(){
+    private void leTxt(){
       
-       System.out.printf("\nConteúdo do arquivo texto:\n");
+       System.out.printf("\nConteúdo do arquivo texto:\t");
 
        try {
 
@@ -39,7 +48,7 @@ public class Expressoes{
             BufferedReader lerArq = new BufferedReader(arq); 
 
             String linha = lerArq.readLine(); 
-            System.out.printf("%s\n", linha);
+            System.out.printf("%s\n\n", linha);
 
             arq.close();
         }
