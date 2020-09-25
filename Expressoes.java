@@ -19,6 +19,7 @@ public class Expressoes{
     //MÉTODO PARA SALVAR U-M-A LINHA NO .TXT ------------------------
     public void salvaTxt() throws IOException {
 
+        System.out.printf("A frase é: %s\n", frase);
         final FileWriter arq = new FileWriter("linguagem.txt");
         final PrintWriter gravarArq = new PrintWriter(arq);
         gravarArq.printf(frase);

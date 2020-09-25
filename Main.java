@@ -7,7 +7,7 @@ public class Main{
         Scanner input = new Scanner(System.in);
 
         //SALVA PALAVRA -------------------------
-        System.out.println("\nDigite a Palavra: "); String palavra = input.next();
+        System.out.println("\nDigite a Palavra: "); String palavra = input.nextLine();
 
         //CONSTRUTOR EXPRESSOES PARA CHAMAR A CLASSE ------------
         Expressoes vai = new Expressoes(palavra);  
