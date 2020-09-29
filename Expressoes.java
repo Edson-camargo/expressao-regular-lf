@@ -20,6 +20,7 @@ public class Expressoes{
         System.out.print("\nDigite a Palavra: ");
         Scanner input = new Scanner(System.in);
         this.frase = input.nextLine();
+        input.close();
 
         salvaTxt();
         leTxt();

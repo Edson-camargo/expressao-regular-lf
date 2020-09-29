@@ -7,5 +7,4 @@ public class Main{
         vai.begin();
 
     }
-
 }
