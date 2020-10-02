@@ -14,12 +14,16 @@ public class Expressoes{
     private Integer flag=0;
     private char [] suporte;
     private ArrayList <String> a1;
-    private String a2;
+    private ArrayList <String> a3;
+    private ArrayList <String> a4;
+    private ArrayList <String> a5;
 
     Expressoes() {
         
         a1 = new ArrayList<String>();
-        //a2+="(";
+        a3 = new ArrayList<String>();
+        a4 = new ArrayList<String>();
+        a5 = new ArrayList<String>();
 
     }
 
@@ -31,8 +35,9 @@ public class Expressoes{
         salvaTxt(frase);
         theFirst();
         theSecond();
-        //leTxt();
-    }
+        //theThird();
+        //leTxt(); 
+    }    
     
     //MÉTODO PARA SALVAR U-M-A LINHA NO .TXT ------------------------
     private void salvaTxt(String frase) throws IOException {
@@ -73,7 +78,8 @@ public class Expressoes{
 
     private void theFirst() throws IOException{
         suporte  = frase.toCharArray();
-        Integer i;        
+        Integer i;       
+        String a2=""; a2+="("; 
         for(i=0; i<suporte.length;i++){
             if(((suporte[i] == '0') || (suporte[i] == '1'))){
                 if(suporte[i] == '0'){a1.add("L(0)");a2+="L(0)";}                              
@@ -81,21 +87,89 @@ public class Expressoes{
             }
             if((suporte[i] == '*') || suporte[i] == '|'){
                 if(suporte[i] == '*'){a1.add("*");a2+="*";}
-                if(suporte[i] == '|'){a1.add("|");a2+="U";}
+                if(suporte[i] == '|'){a1.add("U");a2+="U";}
             }
         }
         a2+=")";
         System.out.println(a2);
-        for(i=0;i<a1.size();i++){System.out.println(a1.get(i));}
-        final FileWriter arq = new FileWriter("linguagem.txt", true);
-        final PrintWriter gravarArq = new PrintWriter(arq);
-        gravarArq.printf("\n"+a2);
-        arq.close();
+        //for(i=0;i<a1.size();i++){System.out.printf(a1.get(i));}
+        salvaTxt(a2);
     }
 
-    private void theSecond(){
+    private void theSecond() throws IOException{
+        Integer i, j=0, flag1=0;
+        String a2=""; a2+="";
+        String aux4="", aux5="";
+        for(i=0;i<a1.size();i++){
+            if((a1.get(i) == "L(0)") || (a1.get(i) == "L(1)")){
+                a3.add("{");
+                a2+="{";
+                if(a1.get(i) == "L(0)"){a3.add("0");a2+="0";}
+                if(a1.get(i) == "L(1)"){a3.add("1");a2+="1";}
+                a2+="}";
+                a3.add("}");
+            }
+            if((a1.get(i) == "*") || (a1.get(i) == "|")){
+                if(a1.get(i) == "*"){a3.add("*");a2+="*";}
+                if(a1.get(i) == "U"){a3.add("U");a2+="U";}
+            }
+        }
+        salvaTxt(a2);
+        System.out.printf("\nA3: \n");
+        for(i=0;i<a3.size();i++){System.out.printf(a3.get(i));}
         
+        while(j<2){
+            for(i=0;i<a3.size();i++){
+                if((a3.get(i) == "{") || (a3.get(i) == "}")){
+                    if(a3.get(i) == "{"){a3.remove("{");}
+                    if(a3.get(i) == "}"){a3.remove("}");}
+                }
+            }
+        j++;
+        }
+
+        System.out.printf("\nA3: \n");
+        for(i=0;i<a3.size();i++){System.out.printf(a3.get(i));}
+
+        for(i=0;i<=a3.size();i++){
+            if(i==a3.size()){a4.add("}");break;}
+            if(flag1==0){
+                a4.add("{");flag1++;
+                if((a3.get(i)=="0")||(a3.get(i)=="1")){
+                    a4.add(a3.get(i));
+                }   
+            }
+            else{
+                if((a3.get(i)=="0")||(a3.get(i)=="1")){
+                    a4.add(a3.get(i));
+                }
+                if((a3.get(i)=="*")||(a3.get(i)=="U")){
+                    a4.add("}");
+                    a4.add(a3.get(i));
+                    a4.add("{");
+                }
+            }
+        }
+
+        frase = a4.toString();
+        salvaTxt(frase);
+
+        System.out.printf("\nA4: \n");
+        for(i=0;i<a4.size();i++){System.out.printf(a4.get(i));}       
     }
+
+    /*private void theThird() throws IOException{
+        Integer i;
+        String a2;
+        for(i=0;i<a3.size();i++){
+            if(((a3.get(i) == "{0}") && (a3.get(i+1) == "*")) || ((a3.get(i) == "{1}") && (a3.get(i+1) == "*"))){
+                a3.add("{e,");
+                for(i=0;i<10.i++){
+                    a3.add(0);
+                }
+            }            
+        }
+    }*/
 
     public String getFrase(){
         return this.frase;
